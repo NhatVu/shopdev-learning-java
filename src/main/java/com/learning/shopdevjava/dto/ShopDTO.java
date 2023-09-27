@@ -1,5 +1,6 @@
 package com.learning.shopdevjava.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.learning.shopdevjava.entity.ShopEntity;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Data
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ShopDTO {
     private String name;
     private String email;

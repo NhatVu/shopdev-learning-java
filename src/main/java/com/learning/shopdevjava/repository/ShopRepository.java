@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface ShopRepository extends MongoRepository<ShopEntity, String> {
     List<ShopEntity> findByName(String name);
+
+    ShopEntity findByEmail(String email);
+
+    Boolean existsByEmail(String email);
 }

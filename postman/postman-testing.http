@@ -1,4 +1,5 @@
 @url_dev = http://localhost:8080
+@url_dev_v1 = {{url_dev}}/v1/api
 
 ### section 3 _ 1
 GET {{url_dev}}/section3/insert?name=nhat
@@ -6,7 +7,7 @@ GET {{url_dev}}/section3/insert?name=nhat
 ### section 3 _ 2
 GET {{url_dev}}/section3/insert?name=lan
 
-### section 5.1
+### section 5.1 _ signup
 POST {{url_dev}}/v1/api/shop/signup
 Content-Type: application/json
 
@@ -17,4 +18,20 @@ Content-Type: application/json
     "status": "ACTIVE",
     "roles" : ["SHOP", "ADMIN"]
 
+}
+
+### section 5_1: get shop by name 
+GET {{url_dev_v1}}/shop/get-shop?name=shop_1
+
+
+### section 5_1: get shop by name. Case name is empty
+GET {{url_dev_v1}}/shop/get-shop?name=
+
+### section 5_1. login
+POST {{url_dev_v1}}/shop/login
+Content-Type: application/json
+
+{
+    "email": "shopdev_1@gmail.com",
+    "password" : "password"
 }

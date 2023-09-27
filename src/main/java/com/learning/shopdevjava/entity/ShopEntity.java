@@ -24,7 +24,7 @@ public class ShopEntity {
     private String name;
     private String email;
     private String password;
-
+    private String salt;
     private String status;
 
     private boolean verify;

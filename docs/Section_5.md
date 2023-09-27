@@ -10,8 +10,14 @@ ShopEntity fields:
 
 Ready requestBody and save Shop into mongodb
 
+### Task 2: Hash password using PBKDF2. For java don't support bcrypt 
+- salt + hash_password should be stored as string in db, so they need to encode with Base64
+- hash_password = hash (raw_password + salt)
+- save salt in database
+- verify password, create hash_password and compare with hash_password in database
 
-### Task 2:
+
+### Task 3: Generate token with RSA algorithm
 TokenEntity fields: 
 - user, privateKey, publicKey, refreshToken
 - note: only admin of Shop can access privateKey
@@ -24,7 +30,11 @@ endpoint for createToken (using privateKey in db)
 
 ## Refs:
 ref to a post in my blog
+- How to store password in database? - https://www.youtube.com/watch?v=zt8Cocdy15c
+- Java password hashing - https://www.baeldung.com/java-password-hashing
 
+## Technical debt
+- config jackson globally: not include null variable, ignore unknown variable, ...
 
 ## Note
 - entity vs dto: normally, entity is used for repository (interact with database). DTO is used for response object, which data is returned to user. There can be some sensitive fields like password, which can't show to user.
