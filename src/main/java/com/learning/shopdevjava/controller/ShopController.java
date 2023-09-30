@@ -1,5 +1,6 @@
 package com.learning.shopdevjava.controller;
 
+import com.auth0.jwt.interfaces.Claim;
 import com.learning.shopdevjava.config.ShopRolesEnum;
 import com.learning.shopdevjava.config.ShopStatusEnum;
 import com.learning.shopdevjava.dto.LoginDTO;
@@ -7,6 +8,7 @@ import com.learning.shopdevjava.dto.ShopDTO;
 import com.learning.shopdevjava.entity.ShopEntity;
 import com.learning.shopdevjava.exception.NotFoundException;
 import com.learning.shopdevjava.repository.ShopRepository;
+import com.learning.shopdevjava.security.JsonWebTokenUtils;
 import com.learning.shopdevjava.service.ShopService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +28,7 @@ public class ShopController {
 
     private ShopRepository shopRepository;
     private ShopService shopService;
+    private JsonWebTokenUtils jsonWebTokenUtils; // for testing only
 
     @PostMapping("signup")
     public Map<String, Object> signUp(@RequestBody ShopDTO shopDTO){
@@ -54,6 +57,15 @@ public class ShopController {
         Map<String, Object> res = new HashMap<>();
         res.put("code", 200);
         res.put("metadata", shop);
+        return res;
+    }
+
+    @GetMapping("verifyToken")
+    public Map<String, String> verifyTokenTest(@RequestParam String token){
+        Map<String, Claim> claims = jsonWebTokenUtils.verify(token);
+        Map<String, String> res = new HashMap<>();
+        res.put("userId", claims.get("userId").asString());
+        res.put("email", claims.get("email").asString());
         return res;
     }
 

@@ -1,4 +1,4 @@
-package com.learning.shopdevjava.utils;
+package com.learning.shopdevjava.security;
 
 import org.springframework.stereotype.Component;
 

@@ -35,3 +35,6 @@ Content-Type: application/json
     "email": "shopdev_1@gmail.com",
     "password" : "password"
 }
+
+### section 5_3, verify token 
+GET {{url_dev_v1}}/shop/verifyToken?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsInVzZXJJZCI6IjY1MTg0N2VlM2I4MzI3MDg3MjJhMDJkOCIsImVtYWlsIjoic2hvcGRldl8xQGdtYWlsLmNvbSJ9.r7LX3ry3ps72ItaLIjvmKztycJKDr0_nmowD-u-vQe1-GXFLWpFB3mxVeqqInBZgNT6aSmCzwLKz6mbPLDqUZiFr-uPW-o4Q-UKAYXgqgt8A6OyI3zApSZY8esXmL4Jjm-WRYFsh4qsFgUIWbWx96l3AKTC2KTlBb2FyQMAu-vdc3_pIGCrH0RTOYUWnG0v4PkJsuUiuIA4UTPn-dyZwrZoVYzNYH2-w2_uf4kDkbe5yAf4SKZ4EZa-Qh-Xg3Q06B7T6BIgkWoFm4pa6jRGsfqB8Pl4kpMQNWXr7NFMbxUIB_o1B95fVdU4eOa7H0NakWioyqNquXCG8N8JjJXzAQw

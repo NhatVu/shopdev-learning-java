@@ -24,17 +24,16 @@ TokenEntity fields:
 
 endpoint for verifyToken (using publicKey in db)
 
-endpoint for createToken (using privateKey in db)
-  When signUp shop, return shopInfo + accessToken/refreshToken
+endpoint for login: will produce token (using privateKey in db)
 
+When signUp shop, return shopInfo + accessToken/refreshToken
+
+**My opinion:** shouldn't create pair private/public for each shop. If scale up the system, will be bottleneck at auth service. Instead, having 1 common keyPair, then publicKey can be shared between services. 
 
 ## Refs:
 ref to a post in my blog
 - How to store password in database? - https://www.youtube.com/watch?v=zt8Cocdy15c
 - Java password hashing - https://www.baeldung.com/java-password-hashing
-
-## Technical debt
-- config jackson globally: not include null variable, ignore unknown variable, ...
 
 ## Note
 - entity vs dto: normally, entity is used for repository (interact with database). DTO is used for response object, which data is returned to user. There can be some sensitive fields like password, which can't show to user.

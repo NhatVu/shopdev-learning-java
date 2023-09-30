@@ -1,11 +1,13 @@
 package com.learning.shopdevjava.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("Keys")
 @Data
+@Builder
 public class KeyEntity {
     @Id
     private String id;
