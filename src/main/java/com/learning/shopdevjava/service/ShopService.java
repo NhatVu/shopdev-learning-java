@@ -90,6 +90,7 @@ public class ShopService {
         Map<String, Object> tokenPayload = new HashMap<>();
         tokenPayload.put("userId", entity.getId()); // this is shopId
         tokenPayload.put("email", entity.getEmail());
+        tokenPayload.put("timestamp", System.currentTimeMillis());
 
         String accessToken = jsonWebTokenUtils.sign(tokenPayload, keyPair.getPrivateKey());
 

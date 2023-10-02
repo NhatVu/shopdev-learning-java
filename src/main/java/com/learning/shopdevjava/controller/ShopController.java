@@ -5,14 +5,17 @@ import com.learning.shopdevjava.config.ShopRolesEnum;
 import com.learning.shopdevjava.config.ShopStatusEnum;
 import com.learning.shopdevjava.dto.LoginDTO;
 import com.learning.shopdevjava.dto.ShopDTO;
+import com.learning.shopdevjava.entity.APIKeyEntity;
 import com.learning.shopdevjava.entity.ShopEntity;
 import com.learning.shopdevjava.exception.NotFoundException;
+import com.learning.shopdevjava.repository.APIKeyRepository;
 import com.learning.shopdevjava.repository.ShopRepository;
 import com.learning.shopdevjava.security.JsonWebTokenUtils;
 import com.learning.shopdevjava.service.ShopService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +32,7 @@ public class ShopController {
     private ShopRepository shopRepository;
     private ShopService shopService;
     private JsonWebTokenUtils jsonWebTokenUtils; // for testing only
+    private APIKeyRepository apiKeyRepository; // for testing only
 
     @PostMapping("signup")
     public Map<String, Object> signUp(@RequestBody ShopDTO shopDTO){
@@ -76,6 +80,17 @@ public class ShopController {
         }
         List<ShopEntity> byName = shopRepository.findByName(name);
         return ShopDTO.fromEntityWithLimitFields(byName);
+    }
+
+    @GetMapping("create-api-key")
+    public APIKeyEntity createApiKey(){
+        String key = RandomStringUtils.random(12, true, true);
+        APIKeyEntity entity = APIKeyEntity.builder()
+                .key(key)
+                .status(true)
+                .permissions(Arrays.asList("shop.full", "newsfeed.read"))
+                .build();
+        return apiKeyRepository.save(entity);
     }
 
 

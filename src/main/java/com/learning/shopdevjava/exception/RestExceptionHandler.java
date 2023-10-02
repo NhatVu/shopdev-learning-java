@@ -11,7 +11,7 @@ import java.util.Map;
 @ControllerAdvice
 public class RestExceptionHandler {
     @ExceptionHandler(value
-            = { IllegalArgumentException.class, IllegalStateException.class })
+            = { IllegalArgumentException.class, IllegalStateException.class, InvalidAPIKeyException.class })
     protected ResponseEntity<Object> badRequest(
             RuntimeException ex) {
         Map<String, Object> body = new HashMap<>();
