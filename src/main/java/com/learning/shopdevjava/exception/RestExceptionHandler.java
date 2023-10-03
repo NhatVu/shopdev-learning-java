@@ -11,12 +11,23 @@ import java.util.Map;
 @ControllerAdvice
 public class RestExceptionHandler {
     @ExceptionHandler(value
-            = { IllegalArgumentException.class, IllegalStateException.class, InvalidAPIKeyException.class })
+            = { IllegalArgumentException.class, IllegalStateException.class })
     protected ResponseEntity<Object> badRequest(
             RuntimeException ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
+    @ExceptionHandler(value
+            = { InvalidAPIKeyException.class })
+    protected ResponseEntity<Object> badRequestCustom(
+            CommonRuntimeException ex) {
+        Map<String, Object> res = new HashMap<>();
+        res.put("code", ex.getErrorObject().getCode());
+        res.put("message", ex.getErrorObject().getMessage());
+        res.put("status", ex.getErrorObject().getStatus());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
 
     @ExceptionHandler(value

@@ -1,5 +1,6 @@
 package com.learning.shopdevjava.filter;
 
+import com.learning.shopdevjava.config.ErrorCodeConstant;
 import com.learning.shopdevjava.config.HeaderConstant;
 import com.learning.shopdevjava.entity.APIKeyEntity;
 import com.learning.shopdevjava.exception.InvalidAPIKeyException;
@@ -38,7 +39,7 @@ public class APIKeyInterceptor implements HandlerInterceptor {
     private boolean isValidAPIKey(String apiKey){
         APIKeyEntity entity = apiKeyRepository.findByKey(apiKey);
         if(entity == null || entity.isStatus() == false){
-            return false;
+            throw new InvalidAPIKeyException(ErrorCodeConstant.INVALID_API_KEY_NOT_FOUND);
         }
 
         if(!entity.getPermissions().contains(appPermission)){
