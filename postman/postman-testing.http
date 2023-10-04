@@ -10,10 +10,11 @@ GET {{url_dev}}/section3/insert?name=lan
 ### section 5.1 _ signup
 POST {{url_dev}}/v1/api/shop/signup
 Content-Type: application/json
+x-api-key: CAQca9dFGf5R
 
 {
-    "name": "shop_1", 
-    "email": "shopdev_1@gmail.com",
+    "name": "shop_2", 
+    "email": "shopdev_2@gmail.com",
     "password" : "password",
     "status": "ACTIVE",
     "roles" : ["SHOP", "ADMIN"]
@@ -30,7 +31,7 @@ GET {{url_dev_v1}}/shop/get-shop?name=
 ### section 5_1. login
 POST {{url_dev_v1}}/shop/login
 Content-Type: application/json
-x-api-key: CAQca9dFGf5R
+x-api-key: CAQca9dFGf5R_
 
 {
     "email": "shopdev_1@gmail.com",

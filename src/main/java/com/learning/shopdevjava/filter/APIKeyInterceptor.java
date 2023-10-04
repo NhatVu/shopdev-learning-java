@@ -26,12 +26,10 @@ public class APIKeyInterceptor implements HandlerInterceptor {
 
         String apiKeyHeader = request.getHeader(HeaderConstant.API_KEY);
         if(StringUtils.isEmpty(apiKeyHeader)){
-            throw new InvalidAPIKeyException("API key doesn't exist in header");
+            throw new InvalidAPIKeyException(ErrorCodeConstant.INVALID_API_KEY_NOT_FOUND_IN_HEADER);
         }
 
-        if(!isValidAPIKey(apiKeyHeader)){
-            throw new InvalidAPIKeyException("API key doesn't exist or doesn't have sufficient permission");
-        }
+        isValidAPIKey(apiKeyHeader);
 
         return true;
     }
@@ -43,7 +41,7 @@ public class APIKeyInterceptor implements HandlerInterceptor {
         }
 
         if(!entity.getPermissions().contains(appPermission)){
-            return false;
+            throw new InvalidAPIKeyException(ErrorCodeConstant.INVALID_API_KEY_NOT_SUFFICIENT_PERMISSION);
         }
 
         return true;

@@ -4,6 +4,7 @@ import com.auth0.jwt.interfaces.Claim;
 import com.learning.shopdevjava.config.ShopRolesEnum;
 import com.learning.shopdevjava.config.ShopStatusEnum;
 import com.learning.shopdevjava.dto.LoginDTO;
+import com.learning.shopdevjava.dto.ResponseObject;
 import com.learning.shopdevjava.dto.ShopDTO;
 import com.learning.shopdevjava.entity.APIKeyEntity;
 import com.learning.shopdevjava.entity.ShopEntity;
@@ -35,19 +36,18 @@ public class ShopController {
     private APIKeyRepository apiKeyRepository; // for testing only
 
     @PostMapping("signup")
-    public Map<String, Object> signUp(@RequestBody ShopDTO shopDTO){
+    public ResponseObject signUp(@RequestBody ShopDTO shopDTO){
         // note: handle case can't parse dto
         ShopEntity entity = shopService.signUp(shopDTO.getName(), shopDTO.getEmail(), shopDTO.getPassword());
 
-        // response
-        Map<String, Object> res = new HashMap<>();
-        res.put("code", 200);
-        res.put("metadata", entity);
-        return res;
+        return ResponseObject.builder()
+                .code(201)
+                .metadata(entity)
+                .build();
     }
 
     @PostMapping("login")
-    public Map<String, Object> login(@RequestBody LoginDTO loginDTO){
+    public ResponseObject login(@RequestBody LoginDTO loginDTO){
         /**
          * return accessToken, shopInfo
          */
@@ -58,10 +58,11 @@ public class ShopController {
         Map<String, Object> shop = shopService.login(loginDTO.getEmail(), loginDTO.getPassword());
 
         // response
-        Map<String, Object> res = new HashMap<>();
-        res.put("code", 200);
-        res.put("metadata", shop);
-        return res;
+
+        return ResponseObject.builder()
+                .code(200)
+                .metadata(shop)
+                .build();
     }
 
     @GetMapping("verifyToken")
