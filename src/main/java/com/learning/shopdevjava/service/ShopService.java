@@ -2,6 +2,7 @@ package com.learning.shopdevjava.service;
 
 import com.learning.shopdevjava.config.ShopRolesEnum;
 import com.learning.shopdevjava.config.ShopStatusEnum;
+import static com.learning.shopdevjava.config.StringConstant.*;
 import com.learning.shopdevjava.dto.ShopDTO;
 import com.learning.shopdevjava.entity.KeyEntity;
 import com.learning.shopdevjava.entity.ShopEntity;
@@ -91,13 +92,25 @@ public class ShopService {
         tokenPayload.put("userId", entity.getId()); // this is shopId
         tokenPayload.put("email", entity.getEmail());
         tokenPayload.put("timestamp", System.currentTimeMillis());
+        tokenPayload.put("type", "accessToken");
 
         String accessToken = jsonWebTokenUtils.sign(tokenPayload, keyPair.getPrivateKey());
+
+        tokenPayload = new HashMap<>();
+        tokenPayload.put("userId", entity.getId()); // this is shopId
+        tokenPayload.put("email", entity.getEmail());
+        tokenPayload.put("timestamp", System.currentTimeMillis());
+        tokenPayload.put("type", "refreshToken");
+
+        String refreshToken = jsonWebTokenUtils.sign(tokenPayload, keyPair.getPrivateKey());
+        keyPair.addToRefreshToken(refreshToken);
+        keyRepository.save(keyPair);
 
         // return metadata, token
         Map<String, Object> res = new HashMap<>();
         res.put("shop", ShopDTO.fromEntityWithLimitFields(entity));
-        res.put("accessToken", accessToken);
+        res.put(ACCESS_TOKEN, accessToken);
+        res.put(REFRESH_TOKEN, refreshToken);
         return res;
     }
 }

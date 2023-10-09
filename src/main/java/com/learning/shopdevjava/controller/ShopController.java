@@ -71,6 +71,7 @@ public class ShopController {
         Map<String, String> res = new HashMap<>();
         res.put("userId", claims.get("userId").asString());
         res.put("email", claims.get("email").asString());
+        res.put("type", claims.get("type").asString());
         return res;
     }
 
