@@ -6,6 +6,7 @@ import static com.learning.shopdevjava.config.StringConstant.*;
 import com.learning.shopdevjava.dto.ShopDTO;
 import com.learning.shopdevjava.entity.KeyEntity;
 import com.learning.shopdevjava.entity.ShopEntity;
+import com.learning.shopdevjava.exception.NotFoundException;
 import com.learning.shopdevjava.exception.UnAuthorizedException;
 import com.learning.shopdevjava.repository.KeyRepository;
 import com.learning.shopdevjava.repository.ShopRepository;
@@ -102,7 +103,7 @@ public class ShopService {
         tokenPayload.put("timestamp", System.currentTimeMillis());
         tokenPayload.put("type", "refreshToken");
 
-        String refreshToken = jsonWebTokenUtils.sign(tokenPayload, keyPair.getPrivateKey());
+        String refreshToken = jsonWebTokenUtils.sign(tokenPayload, keyPair.getPrivateKey(), 60 * 24 * 30);
         keyPair.addToRefreshToken(refreshToken);
         keyRepository.save(keyPair);
 
@@ -111,6 +112,20 @@ public class ShopService {
         res.put("shop", ShopDTO.fromEntityWithLimitFields(entity));
         res.put(ACCESS_TOKEN, accessToken);
         res.put(REFRESH_TOKEN, refreshToken);
+        return res;
+    }
+
+    public Map<String, Object> logout(String userId){
+        KeyEntity keyEntity = keyRepository.findByUserId(userId);
+        if(keyEntity == null){
+            throw new NotFoundException("userId not found");
+        }
+
+        keyEntity.clearFreshToken();
+        keyRepository.save(keyEntity);
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("message", "logout success");
         return res;
     }
 }

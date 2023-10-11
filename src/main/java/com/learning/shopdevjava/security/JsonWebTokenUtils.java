@@ -7,21 +7,26 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.learning.shopdevjava.config.ErrorCodeConstant;
 import com.learning.shopdevjava.entity.KeyEntity;
+import com.learning.shopdevjava.exception.InvalidTokenException;
 import com.learning.shopdevjava.repository.KeyRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class JsonWebTokenUtils {
     private RSAUtils rsaUtils;
     private KeyRepository keyRepository;
@@ -30,13 +35,20 @@ public class JsonWebTokenUtils {
         return rsaUtils.generateRSAPair();
     }
 
-    public String sign(Map<String, Object> payload, String rsaPrivateKey) {
+    public String sign(Map<String, Object> payload, String rsaPrivateKey){
+        return sign(payload, rsaPrivateKey, 5);
+    }
+
+    public String sign(Map<String, Object> payload, String rsaPrivateKey, int mintue) {
         try {
             PrivateKey privateKey = rsaUtils.parsePrivateKey(rsaPrivateKey);
             Algorithm algorithm = Algorithm.RSA256(null, (RSAPrivateKey) privateKey);
 
+            Calendar expriedTime = Calendar.getInstance();
+            expriedTime.add(Calendar.MINUTE, mintue);
             String token = JWT.create()
                     .withIssuer("auth0")
+                    .withExpiresAt(expriedTime.getTime())
                     .withPayload(payload)
                     .sign(algorithm);
             return token;
@@ -61,9 +73,9 @@ public class JsonWebTokenUtils {
             return decodedJWT.getClaims();
         } catch (JWTVerificationException exception) {
             // Invalid signature/claims
-            System.err.println(exception);
+            log.error(exception.getMessage(), exception);
+            throw new InvalidTokenException(ErrorCodeConstant.INVALID_TOKEN);
         }
-        return null;
     }
 
     public Map<String, Claim> verify(String token){

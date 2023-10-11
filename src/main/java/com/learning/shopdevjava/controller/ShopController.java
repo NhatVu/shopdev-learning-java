@@ -65,6 +65,15 @@ public class ShopController {
                 .build();
     }
 
+    @PostMapping("logout")
+    public ResponseObject logout(@RequestAttribute("userId") String userId){
+        System.out.println("userId: " + userId);
+
+        Map<String, Object> metadata = shopService.logout(userId);
+        metadata.put("userId", userId);
+        return ResponseObject.builder().metadata(metadata).build();
+    }
+
     @GetMapping("verifyToken")
     public Map<String, String> verifyTokenTest(@RequestParam String token){
         Map<String, Claim> claims = jsonWebTokenUtils.verify(token);
