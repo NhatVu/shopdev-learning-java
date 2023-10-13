@@ -35,6 +35,18 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(value
+            = { ForbiddenException.class })
+    protected ResponseEntity<Object> forbiddenRequestCustom(
+            CommonRuntimeException ex) {
+        log.error(ex.getMessage(), ex);
+        Map<String, Object> res = new HashMap<>();
+        res.put("code", ex.getErrorObject().getCode());
+        res.put("message", ex.getErrorObject().getMessage());
+        res.put("status", ex.getErrorObject().getStatus());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
+    }
+
+    @ExceptionHandler(value
             = { NotFoundException.class})
     protected ResponseEntity<Object> notFound(
             RuntimeException ex) {

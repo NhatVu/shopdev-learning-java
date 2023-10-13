@@ -31,9 +31,18 @@ public class KeyEntity {
         refreshTokens.clear();
     }
 
+    public void clearRefreshTokenUsed(){
+        refreshTokensUsed.clear();
+    }
+
     public boolean addToRefreshTokenUsed(String refreshToken){
         if(refreshTokensUsed == null){
             refreshTokensUsed = new ArrayList<>();
+        }
+        int n = refreshTokensUsed.size();
+        // prevent refreshTokenUsed will be very long list.
+        if(n > 200){
+            refreshTokensUsed = refreshTokensUsed.subList(n/2, n);
         }
         return refreshTokensUsed.add(refreshToken);
     }

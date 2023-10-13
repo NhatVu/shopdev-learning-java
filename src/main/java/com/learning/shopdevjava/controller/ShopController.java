@@ -1,8 +1,11 @@
 package com.learning.shopdevjava.controller;
 
+import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.learning.shopdevjava.config.ShopRolesEnum;
 import com.learning.shopdevjava.config.ShopStatusEnum;
+import com.learning.shopdevjava.config.StringConstant;
 import com.learning.shopdevjava.dto.LoginDTO;
 import com.learning.shopdevjava.dto.ResponseObject;
 import com.learning.shopdevjava.dto.ShopDTO;
@@ -102,6 +105,17 @@ public class ShopController {
                 .permissions(Arrays.asList("shop.full", "newsfeed.read"))
                 .build();
         return apiKeyRepository.save(entity);
+    }
+
+    @PostMapping("refresh-token")
+    public ResponseObject createRefreshToken(@RequestBody Map<String, String> body){
+        String refreshToken = body.get(StringConstant.REFRESH_TOKEN);
+
+        Map<String, Object> res = shopService.createNewToken(refreshToken);
+        return ResponseObject.builder()
+                .code(200)
+                .metadata(res)
+                .build();
     }
 
 

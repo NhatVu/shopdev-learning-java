@@ -7,3 +7,4 @@ Renew access token
 - create new pair access and refresh token
 - save new refresh token into refresh token list
 - return new pair access + refresh token
+- For refreshTokenUsed, need a way to prevent this list becomes very long. In theory, we can add unlimited element to this list

@@ -1,11 +1,18 @@
 package com.learning.shopdevjava.service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.learning.shopdevjava.config.ErrorCodeConstant;
 import com.learning.shopdevjava.config.ShopRolesEnum;
 import com.learning.shopdevjava.config.ShopStatusEnum;
 import static com.learning.shopdevjava.config.StringConstant.*;
+
+import com.learning.shopdevjava.config.StringConstant;
 import com.learning.shopdevjava.dto.ShopDTO;
 import com.learning.shopdevjava.entity.KeyEntity;
 import com.learning.shopdevjava.entity.ShopEntity;
+import com.learning.shopdevjava.exception.ForbiddenException;
 import com.learning.shopdevjava.exception.NotFoundException;
 import com.learning.shopdevjava.exception.UnAuthorizedException;
 import com.learning.shopdevjava.repository.KeyRepository;
@@ -126,6 +133,58 @@ public class ShopService {
 
         Map<String, Object> res = new HashMap<>();
         res.put("message", "logout success");
+        return res;
+    }
+
+    public Map<String, Object> createNewToken(String refreshToken){
+        DecodedJWT decodeToken = JWT.decode(refreshToken);
+        Claim claim = decodeToken.getClaim(StringConstant.USER_ID);
+        if(claim == null){
+            throw new IllegalStateException("userId must exists in token payload");
+        }
+        String userId = claim.asString();
+
+        // if refresh token is in refreshTokenUsed list -> invalid all existing refresh token, and return 403 Forbidden
+        KeyEntity byRefreshTokenUsed = keyRepository.findByUserIdAndRefreshTokenUsed(userId, refreshToken);
+        if(byRefreshTokenUsed != null){
+            byRefreshTokenUsed.clearFreshToken();;
+            keyRepository.save(byRefreshTokenUsed);
+            throw new ForbiddenException(ErrorCodeConstant.FORBIDDEN);
+        }
+        // add refresh token into refreshTokenUsed, remove refreshToken from refreshToken list (don't need to to that, but it should be. Incase we need to list all active refreshToken)
+        byRefreshTokenUsed = keyRepository.findByUserId(userId);
+        if(!byRefreshTokenUsed.getRefreshTokens().contains(refreshToken)){
+            throw new ForbiddenException(ErrorCodeConstant.FORBIDDEN);
+        }
+        byRefreshTokenUsed.addToRefreshTokenUsed(refreshToken);
+        byRefreshTokenUsed.getRefreshTokens().remove(refreshToken); // ensure 1 refresh token can only use 1 time
+
+        keyRepository.save(byRefreshTokenUsed);
+
+        //create new pair access and refresh token
+        ShopEntity entity = shopRepository.findById(userId).get();
+        // save keypair to db
+        Map<String, Object> tokenPayload = new HashMap<>();
+        tokenPayload.put("userId", entity.getId()); // this is shopId
+        tokenPayload.put("email", entity.getEmail());
+        tokenPayload.put("timestamp", System.currentTimeMillis());
+        tokenPayload.put("type", "accessToken");
+
+        String newAccessToken = jsonWebTokenUtils.sign(tokenPayload, byRefreshTokenUsed.getPrivateKey());
+
+        tokenPayload = new HashMap<>();
+        tokenPayload.put("userId", entity.getId()); // this is shopId
+        tokenPayload.put("email", entity.getEmail());
+        tokenPayload.put("timestamp", System.currentTimeMillis());
+        tokenPayload.put("type", "refreshToken");
+
+        String newRefreshToken = jsonWebTokenUtils.sign(tokenPayload, byRefreshTokenUsed.getPrivateKey(), 60 * 24 * 30);
+        byRefreshTokenUsed.addToRefreshToken(newRefreshToken);
+        keyRepository.save(byRefreshTokenUsed);
+
+        Map<String, Object> res = new HashMap<>();
+        res.put(ACCESS_TOKEN, newAccessToken);
+        res.put(REFRESH_TOKEN, newRefreshToken);
         return res;
     }
 }

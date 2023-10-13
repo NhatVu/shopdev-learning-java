@@ -36,7 +36,7 @@ public class JsonWebTokenUtils {
     }
 
     public String sign(Map<String, Object> payload, String rsaPrivateKey){
-        return sign(payload, rsaPrivateKey, 5);
+        return sign(payload, rsaPrivateKey, 1000);
     }
 
     public String sign(Map<String, Object> payload, String rsaPrivateKey, int mintue) {
@@ -53,6 +53,7 @@ public class JsonWebTokenUtils {
                     .sign(algorithm);
             return token;
         } catch (JWTCreationException exception) {
+            log.error(exception.getMessage(), exception);
             // Invalid Signing configuration / Couldn't convert Claims.
         }
         return null;

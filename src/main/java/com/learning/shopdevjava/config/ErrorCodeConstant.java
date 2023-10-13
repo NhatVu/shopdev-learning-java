@@ -8,5 +8,6 @@ public class ErrorCodeConstant {
     public static final ErrorObject INVALID_API_KEY_NOT_SUFFICIENT_PERMISSION = new ErrorObject("40009", "error", "API key doesn't have sufficient permissions");
 
     public static final ErrorObject INVALID_TOKEN = new ErrorObject("40010", "error", "Invalid token");
+    public static final ErrorObject FORBIDDEN = new ErrorObject("40003", "error", "Forbidden action");
 
 }
