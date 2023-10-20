@@ -10,4 +10,8 @@ public class ErrorCodeConstant {
     public static final ErrorObject INVALID_TOKEN = new ErrorObject("40010", "error", "Invalid token");
     public static final ErrorObject FORBIDDEN = new ErrorObject("40003", "error", "Forbidden action");
 
+    public static final ErrorObject CREATION_FAIL = new ErrorObject("20003", "error", "Creation fail");
+
+    public static final ErrorObject CREATION_INVALID_TYPE = new ErrorObject("20003", "error", "Creation with invalid type");
+
 }

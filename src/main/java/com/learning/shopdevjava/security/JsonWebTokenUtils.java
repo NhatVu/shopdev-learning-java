@@ -36,7 +36,7 @@ public class JsonWebTokenUtils {
     }
 
     public String sign(Map<String, Object> payload, String rsaPrivateKey){
-        return sign(payload, rsaPrivateKey, 1000);
+        return sign(payload, rsaPrivateKey, 100000);
     }
 
     public String sign(Map<String, Object> payload, String rsaPrivateKey, int mintue) {

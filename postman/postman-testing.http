@@ -61,3 +61,44 @@ Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6
 {
     "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6MTY5OTc3MTkyNSwidHlwZSI6InJlZnJlc2hUb2tlbiIsInVzZXJJZCI6IjY1MTg0N2VlM2I4MzI3MDg3MjJhMDJkOCIsImVtYWlsIjoic2hvcGRldl8xQGdtYWlsLmNvbSIsInRpbWVzdGFtcCI6MTY5NzE3OTkyNTk0N30.uSbYjfIpSBEio2p0d2bWZLWcNirKgrqTAjaRoAyWbDi5V8LjzlSiEFSaNmNsRAjZpWb2RloMrvBbkwOHVEjwGWpgAOgm_KCRQJet8zjwUxI4eTz9yZbS41zt6STWPZuhwlMM_xJ3QV9M_Sg-ymJTw7PjV5BafhwlCnLTP0fXCtknJbQBa0v3bEXMh3H602YAmtFKCqe1A7X2OxbmQkeQYE7kPf0Cfmp95yNsg9rRdasE2SHBgTCk2Eb18n3PXPoXutwg0pp0wnH42l8Y6Pz0SHhlp4rDnAUYofwTefXTaov-tZbEzSK71llgck2yOMxeYLXhtAWKnB91oOfr-6tLmg"
 }
+
+
+### section 13: create product clothes
+POST {{url_dev_v1}}/product/
+Content-Type: application/json
+x-api-key: CAQca9dFGf5R
+Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6MTcwMzY2MjU2MiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwidXNlcklkIjoiNjUxODQ3ZWUzYjgzMjcwODcyMmEwMmQ4IiwiZW1haWwiOiJzaG9wZGV2XzFAZ21haWwuY29tIiwidGltZXN0YW1wIjoxNjk3NjYyNTYyMDE0fQ.JefTYa3Z7z5hoDbBcopmTIOIJOeCTPMR2ivsRceW4E91ZbvNjdviqDxO09a2O6js5DsGxbTMgwlYxqXnxnqoGJPtGANtN0h2m5pmmEs1PvI_Zx8g_7x5pNCpYq1nK2TSPCQMlbrzDEIpJlYmXc90nUJcCH3h-hVtwkfhAn6B-_s3HVftmKo2PUvbw55mNdqu3tnVmj-_5MleuyWBjgYkDID882aEgXO2pEE7a6tXYPl4gmlwyPwgSqiM-JWja5VDdIIZQE0ZhTFeSpSlSM548bTHj3zr1pV80Hx3CTuoneJORMKZ6oyFu9mlMuyNsVUhW6efFO2-2KoFBtdISHCfBA
+
+{
+    "productName": "New Jeans",
+    "productDescription": "High-quality denim jeans",
+    "productPrice": 50,
+    "productType": "clothes",
+    "productThumb": "product_thumb",
+    "productQuantity": 5,
+    "productAttributes": {
+        "brand": "Levis",
+        "size": "L",
+        "material": "Denim"
+    }
+}
+
+### section 13: create eletricis
+POST {{url_dev_v1}}/product/
+Content-Type: application/json
+x-api-key: CAQca9dFGf5R
+Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6MTcwMzY2MjU2MiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwidXNlcklkIjoiNjUxODQ3ZWUzYjgzMjcwODcyMmEwMmQ4IiwiZW1haWwiOiJzaG9wZGV2XzFAZ21haWwuY29tIiwidGltZXN0YW1wIjoxNjk3NjYyNTYyMDE0fQ.JefTYa3Z7z5hoDbBcopmTIOIJOeCTPMR2ivsRceW4E91ZbvNjdviqDxO09a2O6js5DsGxbTMgwlYxqXnxnqoGJPtGANtN0h2m5pmmEs1PvI_Zx8g_7x5pNCpYq1nK2TSPCQMlbrzDEIpJlYmXc90nUJcCH3h-hVtwkfhAn6B-_s3HVftmKo2PUvbw55mNdqu3tnVmj-_5MleuyWBjgYkDID882aEgXO2pEE7a6tXYPl4gmlwyPwgSqiM-JWja5VDdIIZQE0ZhTFeSpSlSM548bTHj3zr1pV80Hx3CTuoneJORMKZ6oyFu9mlMuyNsVUhW6efFO2-2KoFBtdISHCfBA
+
+{
+    "productName": "New LED light",
+    "productDescription": "High-quality lighter",
+    "productPrice": 40,
+    "productType": "electronics",
+    "productThumb": "product_thumb",
+    "productQuantity": 3,
+    "productAttributes": {
+        "manufacture": "Philips",
+        "color": "Red",
+        "model": "LED"
+    }
+}
