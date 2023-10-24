@@ -11,4 +11,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends MongoRepository<ProductEntity, ObjectId> {
     List<ProductEntity> findByIsDraftIsTrueAndProductShopOrderByUpdatedAtDesc(String productShop, Pageable pageable);
+
+    List<ProductEntity> findByIsPublishedIsTrueAndProductShopOrderByUpdatedAtDesc(String productShop, Pageable pageable);
+
 }

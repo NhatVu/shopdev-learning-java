@@ -8,6 +8,11 @@
 - input: shopId, limit, offset
 - result sortBy updateAt field, descending 
 
+### Part 3: publish product by shop 
+- input: productShop, productId
+- have to be productShop in order to update
+- function: getAllPublishProductForShop. Expect to have result after we publish product
+
 ### Techincal debt
 - how to index Mongodb with java? or have to do it separately?
 - how to choose fields not to select when defined MongoEntity?

@@ -29,6 +29,27 @@ public class ProductController {
                 .build();
     }
 
+    @PostMapping("/publish/{product_id}")
+    public ResponseObject publishProduct(@RequestAttribute("userId") String shopId, @PathVariable("product_id") String productId){
+        ProductEntity entity = productService.publishProductByShop(productId, shopId);
+        return ResponseObject.builder()
+                .code(201)
+                .metadata(ProductDTO.fromEntity(entity))
+                .message("publish product")
+                .build();
+    }
+
+    @PostMapping("/unPublish/{product_id}")
+    public ResponseObject unPublishProduct(@RequestAttribute("userId") String shopId, @PathVariable("product_id") String productId){
+        ProductEntity entity = productService.unPublishProductByShop(productId, shopId);
+        return ResponseObject.builder()
+                .code(201)
+                .metadata(ProductDTO.fromEntity(entity))
+                .message("unPublish product")
+                .build();
+    }
+
+
     @GetMapping("/draft/all")
     public ResponseObject getAllDraftProductForShop(@RequestAttribute("userId") String shopId,
                                                     @RequestParam(name="offset", required = false, defaultValue = "0") int offset,
@@ -40,4 +61,18 @@ public class ProductController {
                 .message("get all draft product")
                 .build();
     }
+
+    @GetMapping("/publish/all")
+    public ResponseObject getAllPublishProductForShop(@RequestAttribute("userId") String shopId,
+                                                      @RequestParam(name="offset", required = false, defaultValue = "0") int offset,
+                                                      @RequestParam(name = "limit", required = false, defaultValue = "2") int limit){
+        List<ProductDTO> res = productService.getAllPublishProduct(shopId, offset, limit);
+        return ResponseObject.builder()
+                .code(200)
+                .metadata(res)
+                .message("get all draft product")
+                .build();
+    }
+
+
 }
