@@ -11,7 +11,11 @@ import com.learning.shopdevjava.repository.ClothRepository;
 import com.learning.shopdevjava.repository.ElectronicRepository;
 import com.learning.shopdevjava.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -37,5 +41,15 @@ public class ProductService {
 
         ProductEntity product = creator.createProduct(dto);
         return product;
+    }
+
+    public List<ProductDTO> getAllDraftProduct(String shopId, int offset, int limit){
+        List<ProductEntity> listEntity = productRepository.findByIsDraftIsTrueAndProductShopOrderByUpdatedAtDesc(shopId, PageRequest.of(offset, limit));
+
+        List<ProductDTO> res = new ArrayList<>();
+        for(ProductEntity entity: listEntity){
+            res.add(ProductDTO.fromEntity(entity));
+        }
+        return res;
     }
 }

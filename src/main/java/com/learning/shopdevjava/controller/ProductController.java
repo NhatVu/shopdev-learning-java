@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/v1/api/product/")
@@ -24,6 +26,18 @@ public class ProductController {
                 .code(201)
                 .metadata(ProductDTO.fromEntity(entity))
                 .message("create product")
+                .build();
+    }
+
+    @GetMapping("/draft/all")
+    public ResponseObject getAllDraftProductForShop(@RequestAttribute("userId") String shopId,
+                                                    @RequestParam(name="offset", required = false, defaultValue = "0") int offset,
+                                                    @RequestParam(name = "limit", required = false, defaultValue = "2") int limit){
+        List<ProductDTO> res = productService.getAllDraftProduct(shopId, offset, limit);
+        return ResponseObject.builder()
+                .code(200)
+                .metadata(res)
+                .message("get all draft product")
                 .build();
     }
 }

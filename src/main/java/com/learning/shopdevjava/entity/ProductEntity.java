@@ -5,9 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 import org.bson.types.ObjectId;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
+
+import javax.persistence.Column;
+import java.time.LocalDateTime;
 
 @Document("Products")
 @Data
@@ -30,6 +37,11 @@ public class ProductEntity {
     private Object[] productVariation;
     private boolean isDraft;
     private boolean isPublished;
+    @Column(updatable = false)
+    @CreatedDate
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
     // this is for default field and custom setter method in Lombok.
     public static class ProductEntityBuilder{

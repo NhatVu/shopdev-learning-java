@@ -100,5 +100,12 @@ Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6
         "manufacture": "Philips",
         "color": "Red",
         "model": "LED"
-    }
+    },
+    "ratingAverage": 4.3
 }
+
+### section 16, part 2: get all draft Product by ShopId
+GET {{url_dev_v1}}/product/draft/all?offset=1&limit=2
+Content-Type: application/json
+x-api-key: CAQca9dFGf5R
+Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6MTcwMzY2MjU2MiwidHlwZSI6ImFjY2Vzc1Rva2VuIiwidXNlcklkIjoiNjUxODQ3ZWUzYjgzMjcwODcyMmEwMmQ4IiwiZW1haWwiOiJzaG9wZGV2XzFAZ21haWwuY29tIiwidGltZXN0YW1wIjoxNjk3NjYyNTYyMDE0fQ.JefTYa3Z7z5hoDbBcopmTIOIJOeCTPMR2ivsRceW4E91ZbvNjdviqDxO09a2O6js5DsGxbTMgwlYxqXnxnqoGJPtGANtN0h2m5pmmEs1PvI_Zx8g_7x5pNCpYq1nK2TSPCQMlbrzDEIpJlYmXc90nUJcCH3h-hVtwkfhAn6B-_s3HVftmKo2PUvbw55mNdqu3tnVmj-_5MleuyWBjgYkDID882aEgXO2pEE7a6tXYPl4gmlwyPwgSqiM-JWja5VDdIIZQE0ZhTFeSpSlSM548bTHj3zr1pV80Hx3CTuoneJORMKZ6oyFu9mlMuyNsVUhW6efFO2-2KoFBtdISHCfBA
