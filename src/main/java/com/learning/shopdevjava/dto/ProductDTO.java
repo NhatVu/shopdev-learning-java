@@ -20,6 +20,9 @@ public class ProductDTO {
     private String productType;
     private String productShop;
     private Object productAttributes; // need to clear about this field
+    // more
+    private float ratingAverage=4.5f;
+    private Object[] productVariation;
 
     public ProductEntity toEntity(){
         ProductEntity.ProductEntityBuilder productEntityBuilder = ProductEntity.builder()
@@ -30,7 +33,9 @@ public class ProductDTO {
                 .productQuantity(this.productQuantity)
                 .productType(this.productType)
                 .productShop(this.productShop)
-                .productAttributes(this.productAttributes);
+                .productAttributes(this.productAttributes)
+                .ratingAverage(this.ratingAverage)
+                .productVariation(this.productVariation);
         if(!StringUtils.isEmpty(this.id)){
             productEntityBuilder.id(new ObjectId(this.id));
         }
@@ -49,6 +54,8 @@ public class ProductDTO {
                 .productType(entity.getProductType())
                 .productShop(entity.getProductShop())
                 .productAttributes(entity.getProductAttributes())
+                .ratingAverage(entity.getRatingAverage())
+                .productVariation(entity.getProductVariation())
                 .build();
 
     }
