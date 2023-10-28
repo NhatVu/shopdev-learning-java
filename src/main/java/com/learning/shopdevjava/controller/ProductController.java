@@ -1,6 +1,7 @@
 package com.learning.shopdevjava.controller;
 
 import com.learning.shopdevjava.dto.ProductDTO;
+import com.learning.shopdevjava.dto.ProductSearchDTO;
 import com.learning.shopdevjava.dto.ResponseObject;
 import com.learning.shopdevjava.entity.ProductEntity;
 import com.learning.shopdevjava.service.ProductService;
@@ -74,5 +75,13 @@ public class ProductController {
                 .build();
     }
 
-
+    @PostMapping("/search")
+    public ResponseObject fulltextSearchProduct(@RequestBody ProductSearchDTO dto) {
+        List<ProductDTO> res = productService.fulltextSearchProduct(dto.getText(), dto.getOffset(), dto.getLimit());
+        return ResponseObject.builder()
+                .code(200)
+                .metadata(res)
+                .message("full text search product")
+                .build();
+    }
 }

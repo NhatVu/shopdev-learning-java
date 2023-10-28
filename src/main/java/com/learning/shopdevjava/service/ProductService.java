@@ -15,6 +15,7 @@ import com.learning.shopdevjava.repository.ProductRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.parser.Entity;
@@ -96,6 +97,17 @@ public class ProductService {
         entity.setDraft(true);
         entity.setPublished(false);
         return productRepository.save(entity);
+    }
+
+    public List<ProductDTO> fulltextSearchProduct(String text, int offset, int limit){
+        TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny(text);
+
+        List<ProductEntity> entities = productRepository.findByIsPublishedIsTrue(criteria, PageRequest.of(offset, limit));
+        List<ProductDTO> dtos = new ArrayList<>();
+        for(ProductEntity entity : entities){
+            dtos.add(ProductDTO.fromEntity(entity));
+        }
+        return dtos;
     }
 
 

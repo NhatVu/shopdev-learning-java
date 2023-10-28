@@ -3,6 +3,7 @@ package com.learning.shopdevjava.repository;
 import com.learning.shopdevjava.entity.ProductEntity;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +14,7 @@ public interface ProductRepository extends MongoRepository<ProductEntity, Object
     List<ProductEntity> findByIsDraftIsTrueAndProductShopOrderByUpdatedAtDesc(String productShop, Pageable pageable);
 
     List<ProductEntity> findByIsPublishedIsTrueAndProductShopOrderByUpdatedAtDesc(String productShop, Pageable pageable);
+
+    List<ProductEntity> findByIsPublishedIsTrue(TextCriteria criteria, Pageable pageable);
 
 }

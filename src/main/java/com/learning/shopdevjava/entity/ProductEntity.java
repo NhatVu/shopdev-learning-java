@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 
@@ -23,8 +24,10 @@ import java.time.LocalDateTime;
 public class ProductEntity {
     @Id
     private ObjectId id;
+    @TextIndexed
     private String productName;
     private String productThumb;
+    @TextIndexed
     private String productDescription;
     private double productPrice;
     private int productQuantity;
