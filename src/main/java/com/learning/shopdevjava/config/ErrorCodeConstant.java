@@ -11,6 +11,7 @@ public class ErrorCodeConstant {
     public static final ErrorObject FORBIDDEN = new ErrorObject("40003", "error", "Forbidden action");
 
     public static final ErrorObject CREATION_FAIL = new ErrorObject("20003", "error", "Creation fail");
+    public static final ErrorObject UPDATE_FAIL = new ErrorObject("20004", "error", "Update fail");
 
     public static final ErrorObject CREATION_INVALID_TYPE = new ErrorObject("20003", "error", "Creation with invalid type");
     public static final ErrorObject INSUFFICIENT_PERMISSION = new ErrorObject("40003", "error", "Insufficient Permisison");

@@ -7,9 +7,11 @@ import com.learning.shopdevjava.entity.ProductEntity;
 import com.learning.shopdevjava.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -84,4 +86,20 @@ public class ProductController {
                 .message("full text search product")
                 .build();
     }
+
+    @PatchMapping("/{product_id}")
+    public ResponseObject patchProduct(@RequestBody Map<String, Object> body, @RequestAttribute("userId") String shopId,
+                                       @PathVariable("product_id") String productId){
+        if(StringUtils.isEmpty(productId)){
+            throw new IllegalArgumentException("product_id has not empty");
+        }
+
+        ProductEntity entity = productService.patchUpdate(shopId, productId, body);
+        return ResponseObject.builder()
+                .code(204)
+                .metadata(entity)
+                .build();
+    }
+
+
 }

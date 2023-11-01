@@ -9,6 +9,8 @@ import com.learning.shopdevjava.exception.NotFoundException;
 import com.learning.shopdevjava.factory.product.ClothCreator;
 import com.learning.shopdevjava.factory.product.ElectronicCreator;
 import com.learning.shopdevjava.factory.product.ProductCreator;
+import com.learning.shopdevjava.helper.ProductFactoryHelper;
+import com.learning.shopdevjava.helper.ProductHelper;
 import com.learning.shopdevjava.repository.ClothRepository;
 import com.learning.shopdevjava.repository.ElectronicRepository;
 import com.learning.shopdevjava.repository.ProductRepository;
@@ -18,9 +20,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -32,19 +34,11 @@ public class ProductService {
     @Autowired
     private ElectronicRepository electronicRepository;
 
-    public ProductEntity createProduct(String type, ProductDTO dto){
-        ProductCreator creator = null;
-        switch (type){
-            case "clothes":
-                creator = new ClothCreator(productRepository, clothRepository);
-                break;
-            case "electronics":
-                creator = new ElectronicCreator(productRepository, electronicRepository);
-                break;
-            default:
-                throw new CreationException(ErrorCodeConstant.CREATION_INVALID_TYPE);
-        }
+    @Autowired
+    private ProductFactoryHelper productFactoryHelper;
 
+    public ProductEntity createProduct(String type, ProductDTO dto){
+        ProductCreator creator = productFactoryHelper.get(type);
         ProductEntity product = creator.createProduct(dto);
         return product;
     }
@@ -110,5 +104,20 @@ public class ProductService {
         return dtos;
     }
 
+    public ProductEntity patchUpdate(String shopId, String productId, Map<String, Object> data){
+        Optional<ProductEntity> byId = productRepository.findById(new ObjectId(productId));
+        if(!byId.isPresent()){
+            throw new NotFoundException("Product not found. Id=" + productId);
+        }
+        ProductEntity entity = byId.get();
+        if(!shopId.equals(entity.getProductShop())){
+            throw new InsufficientPermissionException(ErrorCodeConstant.INSUFFICIENT_PERMISSION);
+        }
+
+        ProductCreator factory = productFactoryHelper.get(entity.getProductType());
+        ProductEntity afterUpdate = factory.patchUpdateProduct(entity, data);
+
+        return afterUpdate;
+    }
 
 }

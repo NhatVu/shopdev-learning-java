@@ -15,8 +15,29 @@ public class Utils {
         return slug.toLowerCase(Locale.ENGLISH);
     }
 
+    public static <T> T cast(Object value, String type) {
+        switch (type){
+            case "float":
+                return (T)Float.valueOf(value.toString());
+            case "int":
+                return (T)Integer.valueOf(value.toString());
+            case "long":
+                return (T)Long.valueOf(value.toString());
+            case "double":
+                return (T)Double.valueOf(value.toString());
+            case "boolean":
+                return (T)Boolean.valueOf(value.toString());
+            default:
+                break;
+        }
+        return (T) value;
+    }
+
     public static void main(String[] args) {
         String input = "hello world !@4";
         System.out.println(toSlug(input));
+
+        boolean t = cast("false", boolean.class.getTypeName());
+        System.out.println(t);
     }
 }

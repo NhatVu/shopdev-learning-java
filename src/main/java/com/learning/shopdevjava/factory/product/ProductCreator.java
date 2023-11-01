@@ -5,12 +5,15 @@ import com.learning.shopdevjava.config.ProductTypeEnum;
 import com.learning.shopdevjava.dto.ProductDTO;
 import com.learning.shopdevjava.entity.ProductEntity;
 import com.learning.shopdevjava.exception.CreationException;
+import com.learning.shopdevjava.helper.ProductHelper;
 import com.learning.shopdevjava.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+
+import java.util.Map;
 
 
 public abstract class ProductCreator {
@@ -29,4 +32,9 @@ public abstract class ProductCreator {
         }
         return save;
     };
+
+    public ProductEntity patchUpdateProduct(ProductEntity entity, Map<String, Object> data){
+        ProductHelper.patchUpdateProduct(entity, data);
+        return productRepository.save(entity);
+    }
 }
