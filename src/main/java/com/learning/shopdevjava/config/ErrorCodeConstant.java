@@ -16,4 +16,9 @@ public class ErrorCodeConstant {
     public static final ErrorObject CREATION_INVALID_TYPE = new ErrorObject("20003", "error", "Creation with invalid type");
     public static final ErrorObject INSUFFICIENT_PERMISSION = new ErrorObject("40003", "error", "Insufficient Permisison");
 
+    /// discount
+    public static final ErrorObject BAD_REQUEST_DISCOUNT_CODE_EXPIRED = new ErrorObject("40003", "error", "Discount code expired");
+    public static final ErrorObject BAD_REQUEST_DISCOUNT_CODE_EXIST = new ErrorObject("40003", "error", "Discount code exist");
+    public static final ErrorObject BAD_REQUEST_DISCOUNT_CODE_START_DATE_HAVE_TO_SMALLER_THAN_END_DATE = new ErrorObject("40003", "error", "startDate have to smaller than endDate");
+
 }

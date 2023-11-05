@@ -137,7 +137,7 @@ Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6
     "limit": 2
 }
 
-### section 13: patch eletricis
+### section 18: patch eletricis
 PATCH  {{url_dev_v1}}/product/6537d0fa932f3a1f4f1550be
 Content-Type: application/json
 x-api-key: CAQca9dFGf5R
