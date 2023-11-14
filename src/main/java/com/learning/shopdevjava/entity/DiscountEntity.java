@@ -29,11 +29,10 @@ public class DiscountEntity {
     private List<String> discountUserUsed; // who used discount
     private int discountMaxUsesPerUser; // max discount per user
     private double discountMinOrderValue;
-    @DBRef(db="Shops")
     private ObjectId shopId;
     private boolean isActive;
     private String discountAppliesTo;
-    private List<String> discountProductIds;
+    private List<ObjectId> discountProductIds;
 
 
 }

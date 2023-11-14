@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class DiscountService {
@@ -26,12 +27,17 @@ public class DiscountService {
             throw new BadRequestException(ErrorCodeConstant.BAD_REQUEST_DISCOUNT_CODE_START_DATE_HAVE_TO_SMALLER_THAN_END_DATE);
         }
         // create index for discount
-        DiscountEntity getDiscount = discountRepository.findByShopIdAndDiscountCode(dto.getShopId(), dto.getDiscountCode());
+        DiscountEntity getDiscount = discountRepository.findByShopIdAndDiscountCode(new ObjectId(dto.getShopId()), dto.getDiscountCode());
         if(getDiscount != null){
             throw new BadRequestException(ErrorCodeConstant.BAD_REQUEST_DISCOUNT_CODE_EXIST);
         }
 
         DiscountEntity save = discountRepository.save(dto.toEntity());
         return DiscountDTO.fromEntity(save);
+    }
+
+    public List<DiscountDTO> getAllDiscountCodeWithProduct(String discountCode, String shopId, String userId, int offset, int limit){
+
+        return null;
     }
 }

@@ -26,13 +26,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class DiscountDTO {
-    private ObjectId id;
+    private String id;
     private String discountName;
     private String discountDescription;
     private String discountType; // fixed_amount or percentage
@@ -45,7 +46,7 @@ public class DiscountDTO {
     private List<String> discountUserUsed; // who used discount
     private int discountMaxUsesPerUser; // max discount per user
     private double discountMinOrderValue;
-    private ObjectId shopId;
+    private String shopId;
     @JsonProperty("isActive")
     private boolean isActive;
     private String discountAppliesTo;
@@ -65,19 +66,21 @@ public class DiscountDTO {
                 .discountUserUsed(this.discountUserUsed)
                 .discountMaxUsesPerUser(this.discountMaxUsesPerUser)
                 .discountMinOrderValue(this.discountMinOrderValue)
-                .shopId(this.shopId)
+                .shopId(new ObjectId(this.shopId))
                 .isActive(this.isActive)
-                .discountAppliesTo(this.discountAppliesTo)
-                .discountProductIds(this.discountProductIds);
+                .discountAppliesTo(this.discountAppliesTo);
+        if (this.discountProductIds != null) {
+            builder.discountProductIds(this.discountProductIds.stream().map(e -> new ObjectId(e)).collect(Collectors.toList()));
+        }
         if(this.id != null){
-            builder.id(this.id);
+            builder.id(new ObjectId(this.id));
         }
         return builder.build();
     }
 
     public static DiscountDTO fromEntity(DiscountEntity entity){
-        return DiscountDTO.builder()
-                .id(entity.getId())
+        DiscountDTOBuilder builder = DiscountDTO.builder()
+                .id(entity.getId().toString())
                 .discountName(entity.getDiscountName())
                 .discountDescription(entity.getDiscountDescription())
                 .discountType(entity.getDiscountType())
@@ -90,9 +93,12 @@ public class DiscountDTO {
                 .discountUserUsed(entity.getDiscountUserUsed())
                 .discountMaxUsesPerUser(entity.getDiscountMaxUsesPerUser())
                 .discountMinOrderValue(entity.getDiscountMinOrderValue())
-                .shopId(entity.getShopId())
+                .shopId(entity.getShopId().toString())
                 .isActive(entity.isActive())
-                .discountAppliesTo(entity.getDiscountAppliesTo())
-                .discountProductIds(entity.getDiscountProductIds()).build();
+                .discountAppliesTo(entity.getDiscountAppliesTo());
+        if (entity.getDiscountProductIds() != null) {
+            builder.discountProductIds(entity.getDiscountProductIds().stream().map(e -> e.toString()).collect(Collectors.toList()));
+        }
+        return builder.build();
     }
 }

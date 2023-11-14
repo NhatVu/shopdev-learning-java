@@ -17,14 +17,14 @@ public class DiscountController {
     private DiscountService discountService;
     @PostMapping
     public ResponseObject createDiscountCode(@RequestBody DiscountDTO dto, @RequestAttribute("userId") String shopId){
-        dto.setShopId(new ObjectId(shopId));
+        dto.setShopId(shopId);
         dto.setId(null);
         log.info(dto.toString());
+        DiscountDTO discountCode = discountService.createDiscountCode(dto);
 
         return ResponseObject.builder().code(201)
-                .metadata(dto)
+                .metadata(discountCode)
                 .message("afc")
                 .build();
-//        return discountService.createDiscountCode(dto);
     }
 }
