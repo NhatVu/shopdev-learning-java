@@ -23,7 +23,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(value
-            = { InvalidAPIKeyException.class, InvalidTokenException.class })
+            = { InvalidAPIKeyException.class, InvalidTokenException.class, BadRequestException.class })
     protected ResponseEntity<Object> badRequestCustom(
             CommonRuntimeException ex) {
         log.error(ex.getMessage(), ex);

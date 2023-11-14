@@ -17,13 +17,13 @@ import com.learning.shopdevjava.repository.ProductRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -58,6 +58,19 @@ public class ProductService {
 
         List<ProductDTO> res = new ArrayList<>();
         for(ProductEntity entity: listEntity){
+            res.add(ProductDTO.fromEntity(entity));
+        }
+        return res;
+    }
+
+    public List<ProductDTO> getProductByIds(List<ObjectId> productIds, int offset, int limit){
+        if(CollectionUtils.isEmpty(productIds)){
+            return new ArrayList<>();
+        }
+        List<ProductEntity> byIdIn = productRepository.findByIdInAndIsPublishedIsTrueOrderByUpdatedAtDesc(productIds, PageRequest.of(offset, limit));
+
+        List<ProductDTO> res = new ArrayList<>();
+        for(ProductEntity entity: byIdIn){
             res.add(ProductDTO.fromEntity(entity));
         }
         return res;

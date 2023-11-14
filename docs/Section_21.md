@@ -13,6 +13,11 @@ List of functions:
 - admin: can create discount for all product in website 
 - shop: can only create discount of product that shop managed 
 
+3. Get product by discount code (User | Shop)
+- if discount code applies to all: get all product 
+- if discount code applies to specific: get prooducts in field `discountProductIds`
+- only process active discount code
+
 
 Note:
 - With Java 8, should use new java.time package. In this project, I decide to use LocalDateTime
@@ -21,3 +26,4 @@ Note:
 - https://stackoverflow.com/questions/40150175/most-appropriate-sql-and-java-data-types-for-storing-date-and-time
 - https://www.baeldung.com/spring-boot-customize-jackson-objectmapper
 - https://stackoverflow.com/questions/67097403/how-to-handle-multiple-date-formats-with-springboot-and-jackson
+- https://stackoverflow.com/questions/18987292/spring-crudrepository-findbyinventoryidslistlong-inventoryidlist-equivalen

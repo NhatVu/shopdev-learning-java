@@ -20,5 +20,10 @@ public class ErrorCodeConstant {
     public static final ErrorObject BAD_REQUEST_DISCOUNT_CODE_EXPIRED = new ErrorObject("40003", "error", "Discount code expired");
     public static final ErrorObject BAD_REQUEST_DISCOUNT_CODE_EXIST = new ErrorObject("40003", "error", "Discount code exist");
     public static final ErrorObject BAD_REQUEST_DISCOUNT_CODE_START_DATE_HAVE_TO_SMALLER_THAN_END_DATE = new ErrorObject("40003", "error", "startDate have to smaller than endDate");
+    public static final ErrorObject BAD_REQUEST_DISCOUNT_CODE_NOT_FOUND = new ErrorObject("40003", "error", "Discount code Not Found");
+
+    public static final ErrorObject BAD_REQUEST_DISCOUNT_CODE_INACTIVE = new ErrorObject("40003", "error", "Discount code inactive");
+
+    public static final ErrorObject BAD_REQUEST_UNSUPPORTED= new ErrorObject("40003", "error", "Unsupported operation");
 
 }

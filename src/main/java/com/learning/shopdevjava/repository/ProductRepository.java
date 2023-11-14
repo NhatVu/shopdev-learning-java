@@ -17,4 +17,6 @@ public interface ProductRepository extends MongoRepository<ProductEntity, Object
 
     List<ProductEntity> findByIsPublishedIsTrue(TextCriteria criteria, Pageable pageable);
 
+    List<ProductEntity> findByIdInAndIsPublishedIsTrueOrderByUpdatedAtDesc(List<ObjectId> ids, Pageable pageable);
+
 }
