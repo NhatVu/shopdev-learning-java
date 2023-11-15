@@ -3,10 +3,13 @@ package com.learning.shopdevjava.entity;
 import lombok.Builder;
 import lombok.Data;
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +36,11 @@ public class DiscountEntity {
     private boolean isActive;
     private String discountAppliesTo;
     private List<ObjectId> discountProductIds;
+    @Column(updatable = false)
+    @CreatedDate
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
 
 }

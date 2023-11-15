@@ -43,4 +43,15 @@ public class DiscountController {
                 .build();
     }
 
+    @GetMapping("getDiscount")
+    public ResponseObject getDiscountByShopId(@RequestAttribute("userId") String shopId,
+                                              @RequestParam int offset,
+                                              @RequestParam int limit){
+        List<DiscountDTO> res = discountService.getDiscountByShopId(shopId, offset, limit);
+        return ResponseObject.builder().code(200)
+                .metadata(res)
+                .message("afc")
+                .build();
+    }
+
     }

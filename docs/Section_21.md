@@ -2,7 +2,7 @@
 
 List of functions:
 1. Discount code generator (admin | Shop)
-2. Get all discount code (User | Shop)
+#2. Get all discount code (User | Shop)
 3. Get all product by discount code (User)
 4. Get discount amount (user)
 5. Delete discount code (Admin | Shop)
@@ -13,10 +13,14 @@ List of functions:
 - admin: can create discount for all product in website 
 - shop: can only create discount of product that shop managed 
 
-3. Get product by discount code (User | Shop)
+
+2. Get product by discount code (User | Shop)
 - if discount code applies to all: get all product 
 - if discount code applies to specific: get prooducts in field `discountProductIds`
 - only process active discount code
+
+3. Get discount code by shopId
+- isActive=true
 
 
 Note:
