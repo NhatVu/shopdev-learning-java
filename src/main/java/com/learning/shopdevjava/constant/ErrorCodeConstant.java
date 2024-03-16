@@ -1,4 +1,4 @@
-package com.learning.shopdevjava.config;
+package com.learning.shopdevjava.constant;
 
 import com.learning.shopdevjava.exception.ErrorObject;
 

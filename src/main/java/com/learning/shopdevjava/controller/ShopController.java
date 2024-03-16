@@ -1,24 +1,17 @@
 package com.learning.shopdevjava.controller;
 
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.Claim;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.learning.shopdevjava.config.ShopRolesEnum;
-import com.learning.shopdevjava.config.ShopStatusEnum;
-import com.learning.shopdevjava.config.StringConstant;
+import com.learning.shopdevjava.constant.StringConstant;
 import com.learning.shopdevjava.dto.LoginDTO;
 import com.learning.shopdevjava.dto.ResponseObject;
 import com.learning.shopdevjava.dto.ShopDTO;
 import com.learning.shopdevjava.entity.APIKeyEntity;
 import com.learning.shopdevjava.entity.ShopEntity;
-import com.learning.shopdevjava.exception.NotFoundException;
 import com.learning.shopdevjava.repository.APIKeyRepository;
 import com.learning.shopdevjava.repository.ShopRepository;
 import com.learning.shopdevjava.security.JsonWebTokenUtils;
 import com.learning.shopdevjava.service.ShopService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.learning.shopdevjava.config;
+package com.learning.shopdevjava.constant;
 
 public class StringConstant {
     public static final String ACCESS_TOKEN = "accessToken";

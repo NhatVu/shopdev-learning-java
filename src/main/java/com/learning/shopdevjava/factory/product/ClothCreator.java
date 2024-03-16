@@ -1,7 +1,6 @@
 package com.learning.shopdevjava.factory.product;
 
-import com.learning.shopdevjava.config.ErrorCodeConstant;
-import com.learning.shopdevjava.config.ProductTypeEnum;
+import com.learning.shopdevjava.constant.ErrorCodeConstant;
 import com.learning.shopdevjava.dto.ProductDTO;
 import com.learning.shopdevjava.entity.ClothEntity;
 import com.learning.shopdevjava.entity.ProductEntity;
@@ -10,14 +9,6 @@ import com.learning.shopdevjava.exception.UpdateException;
 import com.learning.shopdevjava.helper.ProductHelper;
 import com.learning.shopdevjava.repository.ClothRepository;
 import com.learning.shopdevjava.repository.ProductRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.hibernate.sql.Update;
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Optional;

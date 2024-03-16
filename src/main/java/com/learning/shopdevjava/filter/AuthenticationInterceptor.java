@@ -1,8 +1,8 @@
 package com.learning.shopdevjava.filter;
 
 import com.auth0.jwt.interfaces.Claim;
-import com.learning.shopdevjava.config.HeaderConstant;
-import com.learning.shopdevjava.config.StringConstant;
+import com.learning.shopdevjava.constant.HeaderConstant;
+import com.learning.shopdevjava.constant.StringConstant;
 import com.learning.shopdevjava.security.JsonWebTokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String url = request.getRequestURI();
         if(url.contains("shop/login") || url.contains("shop/signup")
-                || url.contains("verifyToken")){
+                || url.contains("verifyToken") || url.contains("hello") || url.contains("error")
+        || url.contains("favicon.ico")){
             return true;
         }
 

@@ -3,12 +3,12 @@ package com.learning.shopdevjava.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.learning.shopdevjava.config.ErrorCodeConstant;
+import com.learning.shopdevjava.constant.ErrorCodeConstant;
 import com.learning.shopdevjava.config.ShopRolesEnum;
 import com.learning.shopdevjava.config.ShopStatusEnum;
-import static com.learning.shopdevjava.config.StringConstant.*;
+import static com.learning.shopdevjava.constant.StringConstant.*;
 
-import com.learning.shopdevjava.config.StringConstant;
+import com.learning.shopdevjava.constant.StringConstant;
 import com.learning.shopdevjava.dto.ShopDTO;
 import com.learning.shopdevjava.entity.KeyEntity;
 import com.learning.shopdevjava.entity.ShopEntity;

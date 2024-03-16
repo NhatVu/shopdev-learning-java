@@ -1,8 +1,7 @@
 package com.learning.shopdevjava.factory.product;
 
-import com.learning.shopdevjava.config.ErrorCodeConstant;
+import com.learning.shopdevjava.constant.ErrorCodeConstant;
 import com.learning.shopdevjava.dto.ProductDTO;
-import com.learning.shopdevjava.entity.ClothEntity;
 import com.learning.shopdevjava.entity.ElectronicEntity;
 import com.learning.shopdevjava.entity.ProductEntity;
 import com.learning.shopdevjava.exception.CreationException;

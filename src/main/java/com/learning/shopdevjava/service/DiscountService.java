@@ -1,13 +1,11 @@
 package com.learning.shopdevjava.service;
 
-import com.learning.shopdevjava.config.ErrorCodeConstant;
+import com.learning.shopdevjava.constant.ErrorCodeConstant;
 import com.learning.shopdevjava.constant.DiscountTypeConstant;
 import com.learning.shopdevjava.dto.DiscountDTO;
 import com.learning.shopdevjava.dto.ProductDTO;
 import com.learning.shopdevjava.entity.DiscountEntity;
-import com.learning.shopdevjava.entity.ProductEntity;
 import com.learning.shopdevjava.exception.BadRequestException;
-import com.learning.shopdevjava.exception.NotFoundException;
 import com.learning.shopdevjava.repository.DiscountRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service

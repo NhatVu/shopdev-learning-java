@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 public class ShopdevJavaApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ShopdevJavaApplication.class, args);
+
 	}
 
 }

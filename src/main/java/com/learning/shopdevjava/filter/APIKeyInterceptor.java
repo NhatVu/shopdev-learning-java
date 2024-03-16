@@ -1,7 +1,7 @@
 package com.learning.shopdevjava.filter;
 
-import com.learning.shopdevjava.config.ErrorCodeConstant;
-import com.learning.shopdevjava.config.HeaderConstant;
+import com.learning.shopdevjava.constant.ErrorCodeConstant;
+import com.learning.shopdevjava.constant.HeaderConstant;
 import com.learning.shopdevjava.entity.APIKeyEntity;
 import com.learning.shopdevjava.exception.InvalidAPIKeyException;
 import com.learning.shopdevjava.repository.APIKeyRepository;
@@ -23,6 +23,10 @@ public class APIKeyInterceptor implements HandlerInterceptor {
     private String appPermission;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        String uri = request.getRequestURI();
+        if(uri.contains("hello") || uri.contains("error") || uri.contains("favicon.ico")){
+            return true;
+        }
 
         String apiKeyHeader = request.getHeader(HeaderConstant.API_KEY);
         if(StringUtils.isEmpty(apiKeyHeader)){

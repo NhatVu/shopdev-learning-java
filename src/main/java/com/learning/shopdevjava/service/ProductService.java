@@ -1,29 +1,23 @@
 package com.learning.shopdevjava.service;
 
-import com.learning.shopdevjava.config.ErrorCodeConstant;
+import com.learning.shopdevjava.constant.ErrorCodeConstant;
 import com.learning.shopdevjava.dto.ProductDTO;
 import com.learning.shopdevjava.entity.ProductEntity;
-import com.learning.shopdevjava.exception.CreationException;
 import com.learning.shopdevjava.exception.InsufficientPermissionException;
 import com.learning.shopdevjava.exception.NotFoundException;
-import com.learning.shopdevjava.factory.product.ClothCreator;
-import com.learning.shopdevjava.factory.product.ElectronicCreator;
 import com.learning.shopdevjava.factory.product.ProductCreator;
 import com.learning.shopdevjava.helper.ProductFactoryHelper;
-import com.learning.shopdevjava.helper.ProductHelper;
 import com.learning.shopdevjava.repository.ClothRepository;
 import com.learning.shopdevjava.repository.ElectronicRepository;
 import com.learning.shopdevjava.repository.ProductRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
