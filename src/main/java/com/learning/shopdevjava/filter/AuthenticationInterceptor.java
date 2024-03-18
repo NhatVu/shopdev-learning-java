@@ -1,6 +1,7 @@
 package com.learning.shopdevjava.filter;
 
 import com.auth0.jwt.interfaces.Claim;
+import com.learning.shopdevjava.constant.CommonConstant;
 import com.learning.shopdevjava.constant.HeaderConstant;
 import com.learning.shopdevjava.constant.StringConstant;
 import com.learning.shopdevjava.security.JsonWebTokenUtils;
@@ -25,9 +26,13 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String url = request.getRequestURI();
+        for(String publicUrl: CommonConstant.PUBLIC_URL) {
+            if (url.contains(publicUrl)) {
+                return true;
+            }
+        }
         if(url.contains("shop/login") || url.contains("shop/signup")
-                || url.contains("verifyToken") || url.contains("hello") || url.contains("error")
-        || url.contains("favicon.ico")){
+                || url.contains("verifyToken")){
             return true;
         }
 
