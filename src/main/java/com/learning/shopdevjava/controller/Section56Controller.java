@@ -1,5 +1,7 @@
 package com.learning.shopdevjava.controller;
 
+import com.learning.shopdevjava.postgres.entity.MessageEntity;
+import com.learning.shopdevjava.postgres.repo.MessageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -26,6 +29,9 @@ public class Section56Controller {
     NamedParameterJdbcTemplate jdbcTemplate;
 
     private AtomicInteger counter = new AtomicInteger();
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     @GetMapping
     public String create10mRecords() throws InterruptedException {
@@ -74,5 +80,15 @@ public class Section56Controller {
 //        String SQL = "SELECT nextval('learning_jpa_hibernate.message_id_seq')";
 //        return jdbcTemplate.queryForObject(SQL, new HashMap<>(), Integer.class);
         return counter.getAndIncrement();
+    }
+
+    @GetMapping("/jpa")
+    public String jpaInsert(@RequestParam String message){
+        MessageEntity entity = MessageEntity.builder()
+                .text(message)
+                .build();
+        messageRepository.save(entity);
+        return "success";
+
     }
 }

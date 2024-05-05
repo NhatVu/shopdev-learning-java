@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Section3 {
     @Autowired
     private UserRepository userRepository;
+
     @GetMapping("/insert")
     public UserEntity insertHardCode(@RequestParam String name){
         UserEntity userEntity = UserEntity.builder()

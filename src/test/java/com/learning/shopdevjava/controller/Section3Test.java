@@ -12,6 +12,7 @@ import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
@@ -24,10 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-@ExtendWith({SpringExtension.class})
-@WebMvcTest(Section3.class)
-@Import({MongoConfig.class}) // main point is to include MongoConfig, and test profile for testing
-@ActiveProfiles("test")
+@ExtendWith({SpringExtension.class}) // This annotation enables the use of Spring's testing features in the JUnit 5 test class.
+@WebMvcTest(Section3.class) // This annotation configures the test class to use the @Controller, @ControllerAdvice, and @RestController annotations.
+@AutoConfigureDataMongo // This annotation ensures that the embedded MongoDB is configured and available for the tests.
 class Section3Test {
 
     @Autowired
@@ -66,7 +66,6 @@ class Section3Test {
         System.out.println("response: " + mvcResult.getResponse().getContentAsString());
     }
 
-
-
-
+    // test @ControllerAdvice
+    // test input validation for bean, constraint validation
 }
